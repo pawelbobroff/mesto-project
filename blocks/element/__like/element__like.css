@@ -1,0 +1,12 @@
+.element__like{
+    width: 22px;
+    height: 19px;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    justify-self: center;
+}
+
+.element__like:hover{
+    opacity: 0.5;
+}

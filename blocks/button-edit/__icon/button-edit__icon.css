@@ -1,0 +1,13 @@
+.button-edit__icon{
+    width: 10px;
+    height: 10px;
+    margin: auto;
+    padding: 0;
+}
+
+@media (max-width: 767px) {
+    .button-edit__icon{
+        width: 7.5px;
+        height: 7.5px;
+    }
+}

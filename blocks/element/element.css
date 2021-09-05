@@ -1,0 +1,15 @@
+.element{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 282px;
+    background: #FFFFFF;
+    border-radius: 10px;    
+}
+
+@media (max-width: 767px) {
+    .element{
+        min-width: 282px;
+        max-width: 100%;
+    }
+}

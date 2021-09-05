@@ -1,0 +1,7 @@
+.element__description{
+    height: 28px;
+    margin: 25px 15px 31px 21px;
+    display: grid;
+    grid-template-columns: 1fr 22px;   
+    gap: 30px;
+}
