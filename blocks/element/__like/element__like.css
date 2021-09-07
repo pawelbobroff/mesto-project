@@ -5,6 +5,9 @@
     padding: 0;
     align-self: center;
     justify-self: center;
+    border: none;
+    background: none;
+    background-image: url(../../../images/like-icon.svg);
 }
 
 .element__like:hover{

@@ -1,6 +1,6 @@
 .profile__info{
     padding: 0;
-    margin: auto 0 auto 30px ;
+    margin: auto 18px auto 30px ;
     display:grid;
     grid-template-columns: 1fr 24px;
     gap: 16px 18px;

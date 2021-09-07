@@ -11,3 +11,38 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+@media (min-width: 1109px) and (max-width: 1238px) {
+    .element__name{
+        font-size: 20px;
+        line-height: 25px;
+    }
+}
+
+@media (min-width: 973px) and (max-width: 1109px) {
+    .element__name{
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+@media (min-width: 838px) and (max-width: 973px) {
+    .element__name{
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 838px) {
+    .element__name{
+        font-size: 10px;
+        line-height: 12px;
+    }
+}
+
+@media (max-width: 767px) {
+    .element__name{
+        font-size: 24px;
+        line-height: 29px;
+    }
+}

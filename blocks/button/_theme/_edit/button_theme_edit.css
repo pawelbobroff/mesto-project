@@ -1,0 +1,25 @@
+.button_theme_edit{
+    border: none;
+    background: none;
+    background-image: url(../../../../images/edit-icon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 10px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #FFFFFF;
+    padding: 0;
+    margin: auto;    
+}
+
+.button_theme_edit:hover{
+    opacity: 0.6;
+}
+
+@media (max-width: 767px) {
+    .button_theme_edit{
+        width: 18px;
+        height: 18px;
+        background-size: 7.5px 7.5px;
+    }
+}
