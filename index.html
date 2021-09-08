@@ -15,13 +15,13 @@
         <section class="profile">           
             <img class="profile__avatar" src="images/avatar-image.jpg" alt="Аватар">                
             <div class="profile__info">
-                <h3 class="profile__name">Жак-Ив Кусто</h3>
-                <button class="button_theme_edit" type="submit"></button>
-                <h3 class="profile__proffession">Исследователь океана</h3>
+                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <button class="button button_theme_edit" type="button"></button>
+                <p class="profile__proffession">Исследователь океана</p>
             </div>
-            <button class="button_theme_add" type="submit"></button>
+            <button class="button button_theme_add" type="button"></button>
         </section>
-        <div class="elements">
+        <section class="elements">
             <article class="element">
                 <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
                 <div class="element__description">
@@ -64,18 +64,18 @@
                     <button class="element__like" type="button"></button>
                 </div>
             </article>
-        </div>
+        </section>
     </main>
     <footer class="footer">    
         <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
     <div class="popup">
         <div class="popup__container">
-            <button class="button_theme_close" type="submit"></button>
-            <form class="popup__edit" name="popup__edit">
+            <button class="button button_theme_close" type="button"></button>
+            <form class="popup__form" name="popup__form">
                 <h2 class="popup__heading">Редактировать профиль</h2>
-                <input id="username" name="username" class="popup__item" type="text" placeholder="Жак-Ив Кусто" required>
-                <input id="profession" name="profession" class="popup__item" type="text" placeholder="Исследователь океана" required>
+                <input id="username" name="username" class="popup__item" type="text" placeholder="Имя пользователя" required>
+                <input id="profession" name="profession" class="popup__item" type="text" placeholder="Профессия" required>
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
         </div>

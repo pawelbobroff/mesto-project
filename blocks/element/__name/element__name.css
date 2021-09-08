@@ -12,7 +12,7 @@
     overflow: hidden;
 }
 
-@media (min-width: 1109px) and (max-width: 1238px) {
+/* @media (min-width: 1109px) and (max-width: 1238px) {
     .element__name{
         font-size: 20px;
         line-height: 25px;
@@ -38,7 +38,7 @@
         font-size: 10px;
         line-height: 12px;
     }
-}
+} */
 
 @media (max-width: 767px) {
     .element__name{

@@ -1,7 +1,5 @@
-.button_theme_close{
-    background: none;
-    border: none;
-    background-image: url(../../../../images/close-icon.svg);
+.button_theme_close{    
+    background-image: url(../../../images/close-icon.svg);
     background-size: 32px 32px;
     position: absolute;
     top: -40px;
