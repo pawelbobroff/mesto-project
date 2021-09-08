@@ -1,5 +1,5 @@
 .button_theme_close{
-    background-color: unset;
+    background: none;
     border: none;
     background-image: url(../../../../images/close-icon.svg);
     background-size: 32px 32px;
