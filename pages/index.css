@@ -2,7 +2,7 @@
 @import url(../fonts/InterWeb/inter.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/popup_visible.css);
+@import url(../blocks/popup/_unvisible/popup_unvisible.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__form-change-name/popup__form-change-name.css);
 @import url(../blocks/button/button.css);
