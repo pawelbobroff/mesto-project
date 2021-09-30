@@ -22,54 +22,22 @@
             <button class="button button_theme_add" type="button"></button>
         </section>
         <section class="elements">
-            <article class="element">
-                <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
-                <div class="element__description">
-                    <h3 class="element__name">Карачаево-Черкесия</h3>
-                    <button class="element__like" type="button"></button>                    
-                </div>
-            </article>
-            <article class="element">
-                <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
-                <div class="element__description">
-                    <h3 class="element__name">Карачаево-Черкесия</h3>
-                    <button class="element__like" type="button"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
-                <div class="element__description">
-                    <h3 class="element__name">Карачаево-Черкесия</h3>
-                    <button class="element__like" type="button"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
-                <div class="element__description">
-                    <h3 class="element__name">Карачаево-Черкесия</h3>
-                    <button class="element__like" type="button"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
-                <div class="element__description">
-                    <h3 class="element__name">Карачаево-Черкесия</h3>
-                    <button class="element__like" type="button"></button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
-                <div class="element__description">
-                    <h3 class="element__name">Карачаево-Черкесия</h3>
-                    <button class="element__like" type="button"></button>
-                </div>
-            </article>
+            <template id='element'>
+                <article class="element">
+                    <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
+                    <button class="element__delete" type="button"></button>
+                    <div class="element__description">
+                        <h3 class="element__name">Карачаево-Черкесия</h3>
+                        <button class="element__like" type="button"></button>                    
+                    </div>
+                </article>
+            </template>            
         </section>
     </main>
     <footer class="footer">    
         <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-    <div class="popup popup_unvisible">
+    <div class="popup popup_unvisible" id="popup-edit"> 
         <div class="popup__container">
             <button class="button button_theme_close" type="button"></button>
             <form class="popup__form-change-name" name="popup__form-change-name">
@@ -80,5 +48,24 @@
             </form>
         </div>
     </div>
+    <div class="popup popup_unvisible" id="popup-add"> 
+        <div class="popup__container">
+            <button class="button button_theme_close" type="button"></button>
+            <form class="popup__form-add-card" name="popup__form-add-card">
+                <h2 class="popup__heading">Новое место</h2>
+                <input id="elementName" name="elementName" class="popup__item" type="text" placeholder="Название" required>
+                <input id="elementLink" name="elementLink" class="popup__item" type="text" placeholder="Ссылка на картинку" required>
+                <button class="popup__button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup_unvisible" id="popup-view"> 
+        <div class="popup__container-image">
+            <button class="button button_theme_close" type="button"></button>
+            <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="popup__image">
+            <h3 class="popup__name-image">Карачаево-Черкесия</h3>
+        </div>
+    </div>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

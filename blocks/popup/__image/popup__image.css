@@ -1,8 +1,8 @@
-.element__image{
+.popup__image{
     width: 100%;
     margin: 0;
     padding: 0;
-    border-radius: 10px 10px 0 0;
     object-fit: cover;
-    height: 283px;
+    max-height: 75vh;
+    max-width: 75vw;
 }
