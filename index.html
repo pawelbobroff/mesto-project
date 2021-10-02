@@ -37,7 +37,7 @@
     <footer class="footer">    
         <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-    <div class="popup popup_unvisible" id="popup-edit"> 
+    <div class="popup popup_type_profile popup_unvisible"> 
         <div class="popup__container">
             <button class="button button_theme_close" type="button"></button>
             <form class="popup__form-change-name" name="popup__form-change-name">
@@ -48,7 +48,7 @@
             </form>
         </div>
     </div>
-    <div class="popup popup_unvisible" id="popup-add"> 
+    <div class="popup popup_type_card-add popup_unvisible"> 
         <div class="popup__container">
             <button class="button button_theme_close" type="button"></button>
             <form class="popup__form-add-card" name="popup__form-add-card">
@@ -59,13 +59,14 @@
             </form>
         </div>
     </div>
-    <div class="popup popup_unvisible" id="popup-view"> 
+    <div class="popup popup_type_picture popup_unvisible"> 
         <div class="popup__container-image">
             <button class="button button_theme_close" type="button"></button>
             <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="popup__image">
             <h3 class="popup__name-image">Карачаево-Черкесия</h3>
         </div>
     </div>
+    <script src="./scripts/initial-card.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
