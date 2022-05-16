@@ -1,0 +1,4 @@
+.popup__input-errors_active {
+    visibility: visible;
+    opacity: 1;
+}

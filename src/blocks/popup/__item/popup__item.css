@@ -1,7 +1,6 @@
 .popup__item{
     height: 30px;
-    padding: 0;
-    margin-bottom: 30px;    
+    padding: 0;  
     border: 0;
     width: 100%;    
     box-sizing: border-box;
@@ -25,7 +24,16 @@
 }
 
 .popup__item:last-of-type{
-    margin-bottom: 48px;
+    margin-top: 30px;
+}
+
+.popup__item:invalid:not(:focus):not(:placeholder-shown).popup__item_type_error{
+    border-bottom: 1px solid #ff0000;
+    display: block;
+}
+  
+.popup__input:-internal-autofill-selected {
+    background-color: transparent;
 }
 
 @media (max-width: 767px) {

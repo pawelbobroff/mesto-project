@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="pages/index.css">
     <title>Mesto-project</title>
 </head>
 <body class="page">    
     <header class="header">
-        <img class="header__logo" src="images/logo-vector.svg" alt="Логотип">
+        <img class="header__logo" src="<%=require('./images/logo-vector.svg')%>" alt="Логотип">
     </header>
     <main class="content">
         <section class="profile">           
-            <img class="profile__avatar" src="images/avatar-image.jpg" alt="Аватар">                
+            <img class="profile__avatar" src="<%=require('./images/avatar-image.jpg')%>" alt="Аватар">                
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="button button_theme_edit" type="button"></button>
@@ -35,15 +34,17 @@
         </section>
     </main>
     <footer class="footer">    
-        <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
     <div class="popup popup_type_profile popup_unvisible"> 
         <div class="popup__container">
             <button class="button button_theme_close" type="button"></button>
-            <form class="popup__form-change-name" name="popup__form-change-name">
+            <form class="form popup__form-change-name" name="popup__form-change-name">
                 <h2 class="popup__heading">Редактировать профиль</h2>
-                <input id="username" name="username" class="popup__item" type="text" placeholder="Имя пользователя" required>
-                <input id="profession" name="profession" class="popup__item" type="text" placeholder="Профессия" required>
+                <input id="username" name="username" class="popup__item" type="text" minlength="2" maxlength="40" placeholder="Имя пользователя" required>
+                <span class="popup__input-errors username-error" id="username-error"></span>
+                <input id="profession" name="profession" class="popup__item" type="text"  minlength="2" maxlength="200" placeholder="Профессия" required>
+                <span class="popup__input-errors profession-error" id="profession-error"></span>
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
         </div>
@@ -51,11 +52,13 @@
     <div class="popup popup_type_card-add popup_unvisible"> 
         <div class="popup__container">
             <button class="button button_theme_close" type="button"></button>
-            <form class="popup__form-add-card" name="popup__form-add-card">
+            <form class="form popup__form-add-card" name="popup__form-add-card">
                 <h2 class="popup__heading">Новое место</h2>
                 <input id="elementName" name="elementName" class="popup__item" type="text" placeholder="Название" required>
-                <input id="elementLink" name="elementLink" class="popup__item" type="text" placeholder="Ссылка на картинку" required>
-                <button class="popup__button" type="submit">Сохранить</button>
+                <span class="popup__input-errors elementName-error" id="elementName-error"></span>
+                <input id="elementLink" name="elementLink" class="popup__item" type="url" placeholder="Ссылка на картинку" required>
+                <span class="popup__input-errors elementLink-error" id="elementLink-error"></span>
+                <button class="popup__button " type="submit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -66,7 +69,6 @@
             <h3 class="popup__name-image">Карачаево-Черкесия</h3>
         </div>
     </div>
-    <script src="./components/card.js"></script>
-    <script src="./components/index.js"></script>
+    
 </body>
 </html>

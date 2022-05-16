@@ -15,21 +15,26 @@ const elements=document.querySelector('.elements');
 const popupView = document.querySelector('.popup_type_picture');
 const buttonClosePopupView = popupView.querySelector('.button_theme_close');
 
+import '../pages/index.css'
+import { initialCards } from './card.js';
+import { enableValidation, hideErorrs } from './validate.js';
+import {validationSettings} from './utils.js';
+import { openPopup, closePopup } from './modal.js';
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
 
-const openPopup = function (popup) {
-  popup.classList.remove('popup_unvisible')
-}
+//const openPopup = function (popup) {
+//  popup.classList.remove('popup_unvisible')
+//}
   
-const closePopup = function (popup) {
-  popup.classList.add('popup_unvisible')
-}
+//const closePopup = function (popup) {
+//  popup.classList.add('popup_unvisible')
+//}
 
 buttonOpenPopupEdit.addEventListener(
   'click',
-  function (evt) {
+  function () {
         popupUsername.value = userNameElement.textContent;
         popupProfession.value = userProfElement.textContent;
         openPopup(popupEdit);
@@ -78,8 +83,9 @@ function createCard (cardData) {
 initialCards.forEach ( function (initialCard) {
   const element = createCard(initialCard);
   elements.prepend(element);
-} 
-);
+});
+
+
 
 //3 and 4 Форма добавления карточки
 
@@ -102,3 +108,8 @@ function handleNewCardSubmit (evt) {
 popupAdd.addEventListener('submit', handleNewCardSubmit);
 
 buttonClosePopupView.addEventListener('click', () => closePopup(popupView))
+
+
+//Валидация
+
+enableValidation(validationSettings);
