@@ -8,6 +8,7 @@ import { validationSettings } from './utils.js';
     formInput.classList.add(settings.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(settings.errorClass);// Показываем сообщение об ошибке
+    
   };
   
   // Функция, которая удаляет класс с ошибкой

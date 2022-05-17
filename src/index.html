@@ -23,7 +23,7 @@
         <section class="elements">
             <template id='element'>
                 <article class="element">
-                    <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="element__image">
+                    <img src="<%=require('./images/card1-image.jpg')%>" alt="Карачаево-Черкесия" class="element__image">
                     <button class="element__delete" type="button"></button>
                     <div class="element__description">
                         <h3 class="element__name">Карачаево-Черкесия</h3>
@@ -65,7 +65,7 @@
     <div class="popup popup_type_picture popup_unvisible"> 
         <div class="popup__container-image">
             <button class="button button_theme_close" type="button"></button>
-            <img src="images/card1-image.jpg" alt="Карачаево-Черкесия" class="popup__image">
+            <img src="<%=require('./images/card1-image.jpg')%>" alt="Карачаево-Черкесия" class="popup__image">
             <h3 class="popup__name-image">Карачаево-Черкесия</h3>
         </div>
     </div>

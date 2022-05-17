@@ -10,16 +10,19 @@ const popupAdd = document.querySelector('.popup_type_card-add');
 const buttonClosePopupAdd = popupAdd.querySelector('.button_theme_close');
 const popupElementName = popupAdd.querySelector('#elementName');
 const popupElementLink = popupAdd.querySelector('#elementLink');
+const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
 const elementTemlate=document.querySelector('#element').content;
 const elements=document.querySelector('.elements');
 const popupView = document.querySelector('.popup_type_picture');
 const buttonClosePopupView = popupView.querySelector('.button_theme_close');
+const popupViewImage =  popupView.querySelector('.popup__image');
 
 import '../pages/index.css'
 import { initialCards } from './card.js';
 import { enableValidation, hideErorrs } from './validate.js';
 import {validationSettings} from './utils.js';
 import { openPopup, closePopup } from './modal.js';
+import {toggleButtonState} from './validate';
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
@@ -35,6 +38,7 @@ import { openPopup, closePopup } from './modal.js';
 buttonOpenPopupEdit.addEventListener(
   'click',
   function () {
+        hideErorrs(popupEdit);
         popupUsername.value = userNameElement.textContent;
         popupProfession.value = userProfElement.textContent;
         openPopup(popupEdit);
@@ -70,7 +74,6 @@ function createCard (cardData) {
     () => elementButtonDel.closest("article").remove());
   elementImage.addEventListener('click',
     function (evt) {
-      const popupViewImage =  popupView.querySelector('.popup__image');
       popupViewImage.src = cardData.link;
       popupViewImage.alt = cardData.name;
       popupView.querySelector('.popup__name-image').textContent = cardData.name;       
@@ -101,8 +104,9 @@ function handleNewCardSubmit (evt) {
     }
   const element = createCard(cardData);
   elements.prepend(element);
+  popupAdd.querySelector('.popup__button').classList.add('popup__button_novalid');
   closePopup(popupAdd);
-  popupAdd.querySelector('.popup__form-add-card').reset();
+  popupAddCard.reset();
 }
 
 popupAdd.addEventListener('submit', handleNewCardSubmit);
