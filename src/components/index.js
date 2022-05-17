@@ -7,6 +7,7 @@ const userNameElement = document.querySelector('.profile__name');
 const userProfElement = document.querySelector('.profile__proffession');
 const buttonOpenPopupAdd = document.querySelector('.button_theme_add');
 const popupAdd = document.querySelector('.popup_type_card-add');
+const popupAddButton = popupAdd.querySelector('.popup__button');
 const buttonClosePopupAdd = popupAdd.querySelector('.button_theme_close');
 const popupElementName = popupAdd.querySelector('#elementName');
 const popupElementLink = popupAdd.querySelector('#elementLink');
@@ -16,6 +17,8 @@ const elements=document.querySelector('.elements');
 const popupView = document.querySelector('.popup_type_picture');
 const buttonClosePopupView = popupView.querySelector('.button_theme_close');
 const popupViewImage =  popupView.querySelector('.popup__image');
+const popupViewImageName = popupView.querySelector('.popup__name-image');
+
 
 import '../pages/index.css'
 import { initialCards } from './card.js';
@@ -76,7 +79,7 @@ function createCard (cardData) {
     function (evt) {
       popupViewImage.src = cardData.link;
       popupViewImage.alt = cardData.name;
-      popupView.querySelector('.popup__name-image').textContent = cardData.name;       
+      popupViewImageName.textContent = cardData.name;       
       openPopup(popupView)
     }
   )
@@ -104,7 +107,8 @@ function handleNewCardSubmit (evt) {
     }
   const element = createCard(cardData);
   elements.prepend(element);
-  popupAdd.querySelector('.popup__button').classList.add('popup__button_novalid');
+  popupAddButton.classList.add('popup__button_novalid');
+  popupAddButton.disabled = true;
   closePopup(popupAdd);
   popupAddCard.reset();
 }
