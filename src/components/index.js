@@ -10,7 +10,7 @@ import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
   popupViewImageName, elementTemlate, elements, initialCards, popupEditButton,
   popupAvatar, buttonClosePopupAvatar, popupAvatarLink,
   popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar} from './utils.js';
-import { openPopup, closePopup, escapeClosePopup, closePopupWithMouse} from './modal.js';
+import { openPopup, closePopup, escapeClosePopup, closePopupWithMouse, closePopupWithCross} from './modal.js';
 import { getInitialCards, printError, getUserData, editProfile, postCard, editAvatarProfile, deleteCard} from './api.js';
 
 //Обновляем данные пользователя
@@ -37,6 +37,7 @@ Promise.all([getUserData(), getInitialCards()])
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
+closePopupWithCross();
 closePopupWithMouse();
 
 buttonOpenPopupEdit.addEventListener(
@@ -48,10 +49,10 @@ buttonOpenPopupEdit.addEventListener(
         openPopup(popupEdit);
   }
 )
-buttonClosePopupEdit.addEventListener('click', () => closePopup(popupEdit));
+
 
 buttonOpenPopupAdd.addEventListener('click', () => openPopup(popupAdd));
-buttonClosePopupAdd.addEventListener('click', () => closePopup(popupAdd));
+
 
 //Добавление карточки
 popupAdd.addEventListener('submit', function (evt){
@@ -71,7 +72,7 @@ popupAdd.addEventListener('submit', function (evt){
     .finally(() => renderLoading(false, popupAddButton));
 });
 
-buttonClosePopupView.addEventListener('click', () => closePopup(popupView));
+
 
 //Редактирование профиля
 function handleformSubmitEdit (evt) {
@@ -116,7 +117,7 @@ buttonOpenPopupAvatar.addEventListener('click', () => {
   hideErorrs(popupAvatar);
   openPopup(popupAvatar)
 });
-buttonClosePopupAvatar.addEventListener('click', () => closePopup(popupAvatar));
+
 
 popupAvatar.addEventListener('submit', function (evt) {
   evt.preventDefault();

@@ -35,3 +35,13 @@ export function closePopupWithMouse() {
     })
   })
 }
+
+export function closePopupWithCross() {
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+       if (evt.target.classList.contains('button_theme_close')) {
+          closePopup(popup)
+        }
+    })
+  })
+}
