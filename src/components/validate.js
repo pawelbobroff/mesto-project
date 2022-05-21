@@ -1,6 +1,10 @@
+import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
+    userAvatarElement, userNameElement, userProfElement, popupAdd,
+    popupElementName, popupElementLink, popupAddButton, buttonClosePopupAdd,
+    popupAddCard, popupEdit, buttonClosePopupEdit, popupUsername, 
+    popupProfession, popupView, buttonClosePopupView, popupViewImage,
+    popupViewImageName, elementTemlate, elements, initialCards} from './utils.js';
 //Валидация форм
-
-import { validationSettings } from './utils.js';
 
   // Функция, которая добавляет класс с ошибкой
   export const showInputError = (form, formInput, errorMessage, settings) => {

@@ -11,23 +11,29 @@
         <img class="header__logo" src="<%=require('./images/logo-vector.svg')%>" alt="Логотип">
     </header>
     <main class="content">
-        <section class="profile">           
-            <img class="profile__avatar" src="<%=require('./images/avatar-image.jpg')%>" alt="Аватар">                
+        <section class="profile">
+            <div class="profile__avatar-wrapper">
+                <img class="profile__avatar" src="" alt="Аватар">
+                <button class="button profile__avatar-edit"></button>
+            </div>                           
             <div class="profile__info">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                <h1 class="profile__name"></h1>
                 <button class="button button_theme_edit" type="button"></button>
-                <p class="profile__proffession">Исследователь океана</p>
+                <p class="profile__proffession"></p>
             </div>
             <button class="button button_theme_add" type="button"></button>
         </section>
         <section class="elements">
             <template id='element'>
                 <article class="element">
-                    <img src="<%=require('./images/card1-image.jpg')%>" alt="Карачаево-Черкесия" class="element__image">
+                    <img src="" alt="" class="element__image">
                     <button class="element__delete" type="button"></button>
                     <div class="element__description">
-                        <h3 class="element__name">Карачаево-Черкесия</h3>
-                        <button class="element__like" type="button"></button>                    
+                        <h3 class="element__name"></h3>
+                        <div class="element__like-wrapper">
+                            <button class="element__like" type="button"></button>
+                            <span class="element__like-counter">0</span> 
+                        </div>                                           
                     </div>
                 </article>
             </template>            
@@ -67,6 +73,17 @@
             <button class="button button_theme_close" type="button"></button>
             <img src="<%=require('./images/card1-image.jpg')%>" alt="Карачаево-Черкесия" class="popup__image">
             <h3 class="popup__name-image">Карачаево-Черкесия</h3>
+        </div>
+    </div>
+    <div class="popup popup_type_avatar-edit popup_unvisible"> 
+        <div class="popup__container">
+            <button class="button button_theme_close" type="button"></button>
+            <form class="form popup__form-avatar-edit" name="popup__form-avatar-edit">
+                <h2 class="popup__heading">Обновить аватар</h2>
+                <input id="avatarLink" name="avatarLink" class="popup__item" type="url" placeholder="Ссылка на аватар" required>
+                <span class="popup__input-errors avatarLink-error" id="elementLink-error"></span>
+                <button class="popup__button " type="submit">Сохранить</button>
+            </form>
         </div>
     </div>
     

@@ -1,42 +1,43 @@
-const buttonOpenPopupEdit = document.querySelector('.button_theme_edit'); 
-const popupEdit = document.querySelector('.popup_type_profile'); 
-const buttonClosePopupEdit = popupEdit.querySelector('.button_theme_close'); 
-const popupUsername = popupEdit.querySelector('#username');
-const popupProfession = popupEdit.querySelector('#profession'); 
-const userNameElement = document.querySelector('.profile__name');
-const userProfElement = document.querySelector('.profile__proffession');
-const buttonOpenPopupAdd = document.querySelector('.button_theme_add');
-const popupAdd = document.querySelector('.popup_type_card-add');
-const popupAddButton = popupAdd.querySelector('.popup__button');
-const buttonClosePopupAdd = popupAdd.querySelector('.button_theme_close');
-const popupElementName = popupAdd.querySelector('#elementName');
-const popupElementLink = popupAdd.querySelector('#elementLink');
-const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
-const elementTemlate=document.querySelector('#element').content;
-const elements=document.querySelector('.elements');
-const popupView = document.querySelector('.popup_type_picture');
-const buttonClosePopupView = popupView.querySelector('.button_theme_close');
-const popupViewImage =  popupView.querySelector('.popup__image');
-const popupViewImageName = popupView.querySelector('.popup__name-image');
-
-
 import '../pages/index.css'
-import { initialCards } from './card.js';
-import { enableValidation, hideErorrs } from './validate.js';
-import {validationSettings} from './utils.js';
-import { openPopup, closePopup } from './modal.js';
-import {toggleButtonState} from './validate';
+import { createCard, clickLikeButton} from './card.js';
+import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState,
+  setEventListeners, enableValidation, hideErorrs } from './validate.js';
+import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
+  userAvatarElement, userNameElement, userProfElement, popupAdd,
+  popupElementName, popupElementLink, popupAddButton, buttonClosePopupAdd,
+  popupAddCard, popupEdit, buttonClosePopupEdit, popupUsername, 
+  popupProfession, popupView, buttonClosePopupView, popupViewImage,
+  popupViewImageName, elementTemlate, elements, initialCards, popupEditButton,
+  popupAvatar, buttonClosePopupAvatar, popupAvatarLink,
+  popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar} from './utils.js';
+import { openPopup, closePopup, escapeClosePopup, closePopupWithMouse} from './modal.js';
+import { getInitialCards, printError, getUserData, editProfile, postCard, editAvatarProfile, deleteCard} from './api.js';
+
+//Обновляем данные пользователя
+let user;
+export function renderUserData(data) {
+  user = data;
+  userNameElement.textContent = data.name;
+  userProfElement.textContent = data.about;
+  userAvatarElement.src = data.avatar;
+  userAvatarElement.alt = `Аватар ${data.name}`;
+}
+
+// Получаем и записываем данные с сервера
+let userId;
+Promise.all([getUserData(), getInitialCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    renderUserData(userData);
+    cards.forEach((card) => {
+      elements.append(createCard(card, userId));
+    });
+  })
+  .catch(printError);
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
-
-//const openPopup = function (popup) {
-//  popup.classList.remove('popup_unvisible')
-//}
-  
-//const closePopup = function (popup) {
-//  popup.classList.add('popup_unvisible')
-//}
+closePopupWithMouse();
 
 buttonOpenPopupEdit.addEventListener(
   'click',
@@ -47,77 +48,98 @@ buttonOpenPopupEdit.addEventListener(
         openPopup(popupEdit);
   }
 )
+buttonClosePopupEdit.addEventListener('click', () => closePopup(popupEdit));
 
-buttonClosePopupEdit.addEventListener('click', () => closePopup(popupEdit))
+buttonOpenPopupAdd.addEventListener('click', () => openPopup(popupAdd));
+buttonClosePopupAdd.addEventListener('click', () => closePopup(popupAdd));
 
+//Добавление карточки
+popupAdd.addEventListener('submit', function (evt){
+  evt.preventDefault();
+  renderLoading(true, popupAddButton);
+  const cardName = popupElementName.value;
+  const cardLink = popupElementLink.value;
+  postCard(cardName, cardLink)
+    .then(card => elements.prepend(createCard(card, userId)))
+    .then(() => {
+      popupAddCard.reset();
+      popupAddButton.classList.add('popup__button_novalid');
+      popupAddButton.disabled = true;
+      closePopup(popupAdd);
+    })
+    .catch(printError)
+    .finally(() => renderLoading(false, popupAddButton));
+});
+
+buttonClosePopupView.addEventListener('click', () => closePopup(popupView));
+
+//Редактирование профиля
 function handleformSubmitEdit (evt) {
-  evt.preventDefault();    
-  userNameElement.textContent = popupUsername.value;
-  userProfElement.textContent = popupProfession.value;
-  closePopup(popupEdit);  
+  evt.preventDefault();
+  renderLoading(true, popupEditButton);
+  editProfile(popupUsername.value, popupProfession.value)
+    .then(res => {
+      renderUserData(res);
+      disabledEditPopupButton(popupEditButton);
+      closePopup(popupEdit);
+    })
+    .catch(printError)
+    .finally(() => renderLoading(false, popupEditButton))  
 }
 
-popupEdit.addEventListener('submit', handleformSubmitEdit); 
+popupEdit.addEventListener('submit', handleformSubmitEdit);
 
-//2. Шесть карточек «из коробки» 
+export function disabledEditPopupButton(disabledButton) {
+  disabledButton.classList.add(validationSettings.inactiveButtonClass);
+  disabledButton.disabled = true;
+};
 
-// создать template-элемент в html разметке
+//Редактирование аватара
 
-function createCard (cardData) {
-  const element = elementTemlate.querySelector('.element').cloneNode(true);
-  const elementImage = element.querySelector('.element__image');
-  const elementButtonDel = element.querySelector('.element__delete');
-  const elementButtonLike = element.querySelector('.element__like');
-  elementImage.src = cardData.link;
-  elementImage.alt = cardData.name;
-  element.querySelector('.element__name').textContent = cardData.name;
-  elementButtonLike.addEventListener('click',
-    () => elementButtonLike.classList.toggle('element__like_liked'));
-  elementButtonDel.addEventListener('click',
-    () => elementButtonDel.closest("article").remove());
-  elementImage.addEventListener('click',
-    function (evt) {
-      popupViewImage.src = cardData.link;
-      popupViewImage.alt = cardData.name;
-      popupViewImageName.textContent = cardData.name;       
-      openPopup(popupView)
-    }
-  )
-  return element;
+
+export function editAvatarImg() {
+  const avatarLink = popupAvatarLink.value;
+  renderLoading(true, popupAvatarButton);
+  editAvatarProfile(avatarLink)
+    .then(res => {      
+      userAvatarElement.src = res.avatar;
+      popupAvatarButton.classList.add('popup__button_novalid');
+      popupAvatarButton.disabled = true;
+      popupAvatarForm.reset();
+      closePopup(popupAvatar);
+    })
+    .catch(printError)
+    .finally(() => renderLoading(false, popupAvatarButton));
 }
 
-initialCards.forEach ( function (initialCard) {
-  const element = createCard(initialCard);
-  elements.prepend(element);
+buttonOpenPopupAvatar.addEventListener('click', () => {
+  hideErorrs(popupAvatar);
+  openPopup(popupAvatar)
+});
+buttonClosePopupAvatar.addEventListener('click', () => closePopup(popupAvatar));
+
+popupAvatar.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+  editAvatarImg();
 });
 
 
-
-//3 and 4 Форма добавления карточки
-
-buttonOpenPopupAdd.addEventListener('click', () => openPopup(popupAdd))
-
-buttonClosePopupAdd.addEventListener('click', () => closePopup(popupAdd))
-
-function handleNewCardSubmit (evt) {
-  evt.preventDefault();
-  const cardData ={
-      name: popupElementName.value,
-      link: popupElementLink.value
-    }
-  const element = createCard(cardData);
-  elements.prepend(element);
-  popupAddButton.classList.add('popup__button_novalid');
-  popupAddButton.disabled = true;
-  closePopup(popupAdd);
-  popupAddCard.reset();
-}
-
-popupAdd.addEventListener('submit', handleNewCardSubmit);
-
-buttonClosePopupView.addEventListener('click', () => closePopup(popupView))
-
+// 2. Создаем 6 карточек из коробки
+// initialCards.forEach ( function (initialCard) {
+//   const element = createCard(initialCard);
+//   elements.prepend(element);
+// });
 
 //Валидация
 
 enableValidation(validationSettings);
+
+
+//Улучшенный UX всех форм
+export function renderLoading(isLoading, button) {
+  if (button.name === 'create-card-button') {
+    button.textContent = isLoading ? 'Сохранение...' : 'Создать'
+  } else {
+    button.textContent = isLoading ? 'Сохранение...' : 'Сохранить'
+  }
+}
