@@ -102,8 +102,8 @@ export function editAvatarImg() {
   const avatarLink = popupAvatarLink.value;
   renderLoading(true, popupAvatarButton);
   editAvatarProfile(avatarLink)
-    .then(res => {      
-      userAvatarElement.src = res.avatar;
+    .then(link => {
+      userAvatarElement.src = link.avatar;
       popupAvatarButton.classList.add('popup__button_novalid');
       popupAvatarButton.disabled = true;
       popupAvatarForm.reset();

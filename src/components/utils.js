@@ -10,7 +10,7 @@ export const popups = document.querySelectorAll('.popup');
 export const buttonOpenPopupEdit = document.querySelector('.button_theme_edit');
 export const buttonOpenPopupAdd = document.querySelector('.button_theme_add');
 export const buttonOpenPopupAvatar = document.querySelector('.profile__avatar-edit');
-export const userAvatarElement = document.querySelector('.profile__avatar');
+export const userAvatarElement = document.querySelector('.profile__avatarImg');
 export const userNameElement = document.querySelector('.profile__name');
 export const userProfElement = document.querySelector('.profile__proffession');
 
@@ -37,7 +37,7 @@ export const popupAvatar = document.querySelector('.popup_type_avatar-edit');
 export const buttonClosePopupAvatar = popupAvatar.querySelector('.button_theme_close');
 export const popupAvatarLink =  popupAvatar.querySelector('#avatarLink');
 export const popupAvatarButton = popupAvatar.querySelector('.popup__button');
-export const popupAvatarForm = popupAvatar.querySelector('.popup_form_avatar-edit');
+export const popupAvatarForm = popupAvatar.querySelector('.popup__form-avatar-edit');
 
 //Работа с карточками
 export const elementTemlate = document.querySelector('#element').content;
