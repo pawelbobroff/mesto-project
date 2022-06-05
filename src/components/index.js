@@ -9,9 +9,14 @@ import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
   popupProfession, popupView, buttonClosePopupView, popupViewImage,
   popupViewImageName, elementTemlate, elements, initialCards, popupEditButton,
   popupAvatar, buttonClosePopupAvatar, popupAvatarLink,
-  popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar} from './utils.js';
+  popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar, config} from './utils.js';
 import { openPopup, closePopup, escapeClosePopup, closePopupWithMouse, closePopupWithCross} from './modal.js';
-import { getInitialCards, printError, getUserData, editProfile, postCard, editAvatarProfile, deleteCard} from './api.js';
+import Api from './api.js';
+
+
+//создаем экземпляр класса Api
+export const api = new Api(config);
+console.log(api);
 
 //Обновляем данные пользователя
 let user;
@@ -25,7 +30,7 @@ export function renderUserData(data) {
 
 // Получаем и записываем данные с сервера
 let userId;
-Promise.all([getUserData(), getInitialCards()])
+Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userId = userData._id;
     renderUserData(userData);
@@ -33,7 +38,7 @@ Promise.all([getUserData(), getInitialCards()])
       elements.append(createCard(card, userId));
     });
   })
-  .catch(printError);
+  .catch(api.printError());
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
@@ -60,7 +65,7 @@ popupAdd.addEventListener('submit', function (evt){
   renderLoading(true, popupAddButton);
   const cardName = popupElementName.value;
   const cardLink = popupElementLink.value;
-  postCard(cardName, cardLink)
+  api.postCard(cardName, cardLink)
     .then(card => elements.prepend(createCard(card, userId)))
     .then(() => {
       popupAddCard.reset();
@@ -68,7 +73,7 @@ popupAdd.addEventListener('submit', function (evt){
       popupAddButton.disabled = true;
       closePopup(popupAdd);
     })
-    .catch(printError)
+    .catch(api.printError())
     .finally(() => renderLoading(false, popupAddButton));
 });
 
@@ -78,13 +83,13 @@ popupAdd.addEventListener('submit', function (evt){
 function handleformSubmitEdit (evt) {
   evt.preventDefault();
   renderLoading(true, popupEditButton);
-  editProfile(popupUsername.value, popupProfession.value)
+  api.editProfile(popupUsername.value, popupProfession.value)
     .then(res => {
       renderUserData(res);
       disabledEditPopupButton(popupEditButton);
       closePopup(popupEdit);
     })
-    .catch(printError)
+    .catch(api.printError())
     .finally(() => renderLoading(false, popupEditButton))  
 }
 
@@ -101,7 +106,7 @@ export function disabledEditPopupButton(disabledButton) {
 export function editAvatarImg() {
   const avatarLink = popupAvatarLink.value;
   renderLoading(true, popupAvatarButton);
-  editAvatarProfile(avatarLink)
+  api.editAvatarProfile(avatarLink)
     .then(link => {
       userAvatarElement.src = link.avatar;
       popupAvatarButton.classList.add('popup__button_novalid');
@@ -109,7 +114,7 @@ export function editAvatarImg() {
       popupAvatarForm.reset();
       closePopup(popupAvatar);
     })
-    .catch(printError)
+    .catch(api.printError())
     .finally(() => renderLoading(false, popupAvatarButton));
 }
 

@@ -6,7 +6,8 @@ import {validationSettings, popupaddLikes, buttonOpenPopupEdit, buttonOpenPopupA
   popupViewImageName, elementTemlate, elements, initialCards} from './utils.js';
 
 import { openPopup } from './modal.js';
-import { deleteCard, printError, addLike, deleteLike } from './api';
+
+import {api} from './index.js';
 
 //2. Шесть карточек «из коробки» 
 
@@ -54,12 +55,12 @@ export function createCard (cardData, userId) {
     (evt) => {clickLikeButton(elementButtonLike, elementLikeCount, cardData._id)});
   
   elementButtonDel.addEventListener('click', function () {
-    deleteCard(cardData._id)
+    api.deleteCard(cardData._id)
       .then(() => {
         const cardItem = elementButtonDel.closest('.element');
         cardItem.remove();
       })
-      .catch(printError)
+      .catch(api.printError())
   });
 
   if (cardData.likes.some(item => item._id === userId)) {
@@ -98,14 +99,14 @@ export function createCard (cardData, userId) {
 
 export function clickLikeButton(elementButtonLike, elementLikeCount, cardId) {
   if (elementButtonLike.classList.contains('element__like_liked')) {
-    deleteLike(cardId)
+    api.deleteLike(cardId)
       .then(res => {
         elementLikeCount.textContent = res.likes.length;
         elementButtonLike.classList.remove('element__like_liked');
       })
       .catch(err => console.error(err))
   } else {
-    addLike(cardId)
+    api.addLike(cardId)
       .then(res => {
         elementLikeCount.textContent = res.likes.length;
         elementButtonLike.classList.add('element__like_liked');

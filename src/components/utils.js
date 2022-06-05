@@ -43,6 +43,15 @@ export const popupAvatarForm = popupAvatar.querySelector('.popup__form-avatar-ed
 export const elementTemlate = document.querySelector('#element').content;
 export const elements = document.querySelector('.elements');
 
+//Настройки запроса
+export const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-9',
+  headers: {
+      authorization: '51635047-90c2-46fc-abfe-190701a5705f',
+      'Content-Type': 'application/json',
+  }
+}
+
 // export const initialCards = [
 //   {
 //     name: 'Архыз',
