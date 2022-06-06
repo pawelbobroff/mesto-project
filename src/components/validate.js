@@ -76,18 +76,18 @@ import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
     });
   };
   
-  //находим все формы на странице
-  export const enableValidation = (settings) => {
-    const formsList = Array.from(document.querySelectorAll(settings.formSelector));
-    formsList.forEach((form) => {
-      setEventListeners(form, settings);
-    });
-  };
+  //находим все формы на странице и валидируем
+  // export const enableValidation = (settings) => {
+  //   const formsList = Array.from(document.querySelectorAll(settings.formSelector));
+  //   formsList.forEach((form) => {
+  //     setEventListeners(form, settings);
+  //   });
+  // };
   
-  export function hideErorrs(popup) {
-    const form = popup.querySelector(validationSettings.formSelector);
-    const inputsList = form.querySelectorAll(validationSettings.inputSelector);
-    inputsList.forEach((inputElement) => {
-      hideInputError(form, inputElement, validationSettings);
-    });
-  };
+  // export function hideErorrs(popup) {
+  //   const form = popup.querySelector(validationSettings.formSelector);
+  //   const inputsList = form.querySelectorAll(validationSettings.inputSelector);
+  //   inputsList.forEach((inputElement) => {
+  //     hideInputError(form, inputElement, validationSettings);
+  //   });
+  // };

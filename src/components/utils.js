@@ -16,13 +16,15 @@ export const userProfElement = document.querySelector('.profile__proffession');
 
 
 export const popupAdd = document.querySelector('.popup_type_card-add');
+export const formAdd = document.querySelector('.popup__form-add-card');
 export const popupElementName = popupAdd.querySelector('#elementName');
 export const popupElementLink = popupAdd.querySelector('#elementLink');
 export const popupAddButton = popupAdd.querySelector('.popup__button');
 export const buttonClosePopupAdd = popupAdd.querySelector('.button_theme_close');
 export const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
 
-export const popupEdit = document.querySelector('.popup_type_profile'); 
+export const popupEdit = document.querySelector('.popup_type_profile');
+export const formEdit = document.querySelector('.popup__form-change-name');
 export const buttonClosePopupEdit = popupEdit.querySelector('.button_theme_close'); 
 export const popupUsername = popupEdit.querySelector('#username');
 export const popupProfession = popupEdit.querySelector('#profession');
@@ -34,6 +36,7 @@ export const popupViewImage =  popupView.querySelector('.popup__image');
 export const popupViewImageName = popupView.querySelector('.popup__name-image');
 
 export const popupAvatar = document.querySelector('.popup_type_avatar-edit');
+export const formAvatar = document.querySelector('.popup__form-avatar-edit');
 export const buttonClosePopupAvatar = popupAvatar.querySelector('.button_theme_close');
 export const popupAvatarLink =  popupAvatar.querySelector('#avatarLink');
 export const popupAvatarButton = popupAvatar.querySelector('.popup__button');

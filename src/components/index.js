@@ -1,8 +1,4 @@
-// проверка git
 import '../pages/index.css'
-import { createCard, clickLikeButton} from './card.js';
-import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState,
-  setEventListeners, enableValidation, hideErorrs } from './validate.js';
 import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
   userAvatarElement, userNameElement, userProfElement, popupAdd,
   popupElementName, popupElementLink, popupAddButton, buttonClosePopupAdd,
@@ -10,14 +6,39 @@ import {validationSettings, popups, buttonOpenPopupEdit, buttonOpenPopupAdd,
   popupProfession, popupView, buttonClosePopupView, popupViewImage,
   popupViewImageName, elementTemlate, elements, initialCards, popupEditButton,
   popupAvatar, buttonClosePopupAvatar, popupAvatarLink,
-  popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar, config} from './utils.js';
+  popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar, config, formAdd, formAvatar, formEdit} from './utils.js';
 import { openPopup, closePopup, escapeClosePopup, closePopupWithMouse, closePopupWithCross} from './modal.js';
 import Api from './api.js';
+import Card from './card.js';
+import FormVaidator from './FormValidator.js';
 
-
+const elementik = 'element';
 //создаем экземпляр класса Api
 export const api = new Api(config);
-console.log(api);
+// export const card = new Card({
+//     likes: [{
+//       about: 'Исследователь океана96',
+//       avatar: "https://bestprogrammer.ru/wp-content/uploads/2020/08/React.jpg",
+//       cohort: 'plus-cohort-9',
+//       name: 'gh6',
+//       _id: '12b8ae712c461ad10ad8a065'
+//     }],
+//     name: 'rty',
+//     link: 'https://bestprogrammer.ru/wp-content/uploads/2020/08/React.jpg',
+//     owner: {
+//       about: 'Исследователь океана96',
+//       avatar: "https://bestprogrammer.ru/wp-content/uploads/2020/08/React.jpg",
+//       cohort: 'plus-cohort-9',
+//       name: 'gh6',
+//       _id: '12b8ae712c461ad10ad8a065'
+//     },
+//     _id: '629cd069f2b1ce03034296bb'
+//     }, 
+//     'element');
+// console.log(api.getInitialCards());
+// console.log(api.getInitialCards()[5]);
+// console.log(JSON.stringify(api.getInitialCards()[5]));
+// console.log(card.generate());
 
 //Обновляем данные пользователя
 let user;
@@ -36,7 +57,8 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     userId = userData._id;
     renderUserData(userData);
     cards.forEach((card) => {
-      elements.append(createCard(card, userId));
+      const cardElement = new Card(card, userId, 'element');
+      elements.append(cardElement.generate());
     });
   })
   .catch(api.printError());
@@ -49,7 +71,7 @@ closePopupWithMouse();
 buttonOpenPopupEdit.addEventListener(
   'click',
   function () {
-        hideErorrs(popupEdit);
+        FormVaidatorEditProfile.hideErorrs();
         popupUsername.value = userNameElement.textContent;
         popupProfession.value = userProfElement.textContent;
         openPopup(popupEdit);
@@ -67,7 +89,7 @@ popupAdd.addEventListener('submit', function (evt){
   const cardName = popupElementName.value;
   const cardLink = popupElementLink.value;
   api.postCard(cardName, cardLink)
-    .then(card => elements.prepend(createCard(card, userId)))
+    .then(card => elements.prepend(new Card(card, userId, 'element')))
     .then(() => {
       popupAddCard.reset();
       popupAddButton.classList.add('popup__button_novalid');
@@ -120,7 +142,7 @@ export function editAvatarImg() {
 }
 
 buttonOpenPopupAvatar.addEventListener('click', () => {
-  hideErorrs(popupAvatar);
+  FormVaidatorEditAvatar.hideErorrs();
   openPopup(popupAvatar)
 });
 
@@ -139,7 +161,13 @@ popupAvatar.addEventListener('submit', function (evt) {
 
 //Валидация
 
-enableValidation(validationSettings);
+// enableValidation(validationSettings);
+const FormVaidatorAddCard = new FormVaidator(validationSettings, formAdd);
+FormVaidatorAddCard.enableValidation();
+const FormVaidatorEditProfile = new FormVaidator(validationSettings, formEdit);
+FormVaidatorEditProfile.enableValidation();
+const FormVaidatorEditAvatar = new FormVaidator(validationSettings, formAvatar);
+FormVaidatorEditAvatar.enableValidation();
 
 
 //Улучшенный UX всех форм
