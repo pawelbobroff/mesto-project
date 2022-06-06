@@ -1,3 +1,4 @@
+// проверка git
 import '../pages/index.css'
 import { createCard, clickLikeButton} from './card.js';
 import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState,
