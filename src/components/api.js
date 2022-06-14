@@ -39,8 +39,8 @@ export default class Api {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-              name: name,
-              about: description
+            name: name,
+            about: description
           })
       })
       .then(this.responseCheck)
@@ -52,8 +52,8 @@ export default class Api {
           method: 'POST',
           headers: this._headers,
           body: JSON.stringify({
-          name: nameCard,
-          link: linkCard
+            name: nameCard,
+            link: linkCard
           })
       })
       .then(this.responseCheck)
@@ -91,7 +91,7 @@ export default class Api {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-          avatar: avatarLink
+            avatar: avatarLink
           })
       })
       .then(this.responseCheck)

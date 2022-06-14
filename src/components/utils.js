@@ -10,9 +10,9 @@ export const popups = document.querySelectorAll('.popup');
 export const buttonOpenPopupEdit = document.querySelector('.button_theme_edit');
 export const buttonOpenPopupAdd = document.querySelector('.button_theme_add');
 export const buttonOpenPopupAvatar = document.querySelector('.profile__avatar-edit');
-export const userAvatarElement = document.querySelector('.profile__avatarImg');
-export const userNameElement = document.querySelector('.profile__name');
-export const userProfElement = document.querySelector('.profile__proffession');
+// export const userAvatarElement = document.querySelector('.profile__avatarImg');
+// export const userNameElement = document.querySelector('.profile__name');
+// export const userProfElement = document.querySelector('.profile__proffession');
 
 
 export const popupAdd = document.querySelector('.popup_type_card-add');
@@ -21,7 +21,7 @@ export const popupElementName = popupAdd.querySelector('#elementName');
 export const popupElementLink = popupAdd.querySelector('#elementLink');
 export const popupAddButton = popupAdd.querySelector('.popup__button');
 export const buttonClosePopupAdd = popupAdd.querySelector('.button_theme_close');
-export const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
+//export const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
 
 export const popupEdit = document.querySelector('.popup_type_profile');
 export const formEdit = document.querySelector('.popup__form-change-name');
@@ -54,30 +54,3 @@ export const config = {
       'Content-Type': 'application/json',
   }
 }
-
-// export const initialCards = [
-//   {
-//     name: 'Архыз',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-//   },
-//   {
-//     name: 'Челябинская область',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-//   },
-//   {
-//     name: 'Иваново',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-//   },
-//   {
-//     name: 'Камчатка',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-//   },
-//   {
-//     name: 'Холмогорский район',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-//   },
-//   {
-//     name: 'Байкал',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-//   }
-// ];
