@@ -1,33 +1,40 @@
 import Popup from "./Popup.js";
 
-export default class PopupWithImage extends Popup {
+export default class PopupWithForm extends Popup {
 
-    constructor(popupSelector, colbackSubmit) {
+    constructor({popupSelector, colbackSubmit}) {
         super(popupSelector);
+
+        //console.log(this._popup);
+        this._inputsssList = this._popup.querySelectorAll('.form');
+        //console.log(this._inputsssList);
+
+        this._inputsList = this._popup.querySelectorAll('.popup__item');
+        this._form = this._popup.querySelectorAll('.form');
+        
+        this._submitButton = this._popup.querySelectorAll('.popup__button');
+
         this._colbackSubmit = colbackSubmit;
-        this._inputsList = super._popup.querySelectorAll('.popup__item');
-        this._form = super._popup.querySelectorAll('.form');
-        this._submitButton = super._popup.querySelectorAll('.popup__button');
 
     }
 
     _getInputValues() {
         this._formValues = {};
-        this._inputsList.forEach(input => this._formValues[input.name] = input.value);
+        this._inputsList.forEach((input) => {this._formValues[input.name] = input.value});
         return this._formValues;
     }
 
     close () {
-        super._popup.classList.remove('popup_opened');
+        super.close();
         this._form.reset()
     }
 
     setEventListeners() {
         super.setEventListeners();
-
-        this._popup.addEventListener('submit', (event) => {
+        //console.log(this._form);
+        this._popup.addEventListener('submit', function (event) {
             event.preventDefault();
             this._colbackSubmit(this._getInputValues());
-        })
+        });
     }
 }

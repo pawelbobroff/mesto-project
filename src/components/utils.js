@@ -35,12 +35,12 @@ export const buttonClosePopupView = popupView.querySelector('.button_theme_close
 export const popupViewImage =  popupView.querySelector('.popup__image');
 export const popupViewImageName = popupView.querySelector('.popup__name-image');
 
-export const popupAvatar = document.querySelector('.popup_type_avatar-edit');
+// export const popupAvatar = document.querySelector('.popup_type_avatar-edit');
 export const formAvatar = document.querySelector('.popup__form-avatar-edit');
-export const buttonClosePopupAvatar = popupAvatar.querySelector('.button_theme_close');
-export const popupAvatarLink =  popupAvatar.querySelector('#avatarLink');
-export const popupAvatarButton = popupAvatar.querySelector('.popup__button');
-export const popupAvatarForm = popupAvatar.querySelector('.popup__form-avatar-edit');
+// export const buttonClosePopupAvatar = popupAvatar.querySelector('.button_theme_close');
+// export const popupAvatarLink =  popupAvatar.querySelector('#avatarLink');
+// export const popupAvatarButton = popupAvatar.querySelector('.popup__button');
+// export const popupAvatarForm = popupAvatar.querySelector('.popup__form-avatar-edit');
 
 //Работа с карточками
 export const elementTemlate = document.querySelector('#element').content;

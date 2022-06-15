@@ -10,15 +10,18 @@ export default class FormVaidator {
     }
 
     // Функция, которая добавляет класс с ошибкой
-    _showInputError (inputElement, errorMessage) {
+    _showInputError (inputElement) {
+        const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.add(this._settings.inputErrorClass);
-        this._errorElement.textContent = errorMessage;
+        this._errorElement.textContent = inputElement.validationMessage;
         this._errorElement.classList.add(this._settings.errorClass);// Показываем сообщение об ошибке
     }
 
     // Функция, которая удаляет класс с ошибкой
     _hideInputError (inputElement) {
-        this._errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+        const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+        console.log(inputElement);
+        console.log(this._settings.inputErrorClass);
         inputElement.classList.remove(this._settings.inputErrorClass);
         this._errorElement.classList.remove(this._settings.errorClass);// Скрываем сообщение об ошибке
         this._errorElement.textContent = '';
@@ -28,7 +31,7 @@ export default class FormVaidator {
     _isValid (inputElement) {
         if (!inputElement.validity.valid) {
             // Если поле не проходит валидацию, покажем ошибку
-            this._showInputError(inputElement, inputElement.validationMessage);
+            this._showInputError(inputElement);
         } else {
             // Если проходит, скроем
             this._hideInputError(inputElement);
@@ -57,7 +60,7 @@ export default class FormVaidator {
     
     //добавляем слушателей всем полям формы
     
-    _setEventListeners () {
+    enableValidation() {
         this._toggleButtonState();
     
         // Обойдём все элементы полученной коллекции
@@ -67,19 +70,16 @@ export default class FormVaidator {
                 // Внутри колбэка вызовем isValid,
                 // передав ей форму и проверяемый элемент
                 this._isValid(inputElement);
-                this._toggleButtonState(this._buttonElement);// Вызовем toggleButtonState и передадим ей массив полей и кнопку
+                this._toggleButtonState();// Вызовем toggleButtonState
             });
         });
     };
     
     //скрываем ошибки всех полей      ??????????????
-    hideErorrs(popup) {
+    hideErorrs() {
+        this._toggleButtonState();
         this._inputsList.forEach((inputElement) => {
             this._hideInputError(inputElement);
         });
     };
-
-    enableValidation(){
-        this._setEventListeners();
-    }
 }

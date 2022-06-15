@@ -1,16 +1,17 @@
 import '../pages/index.css'
 import {validationSettings, buttonOpenPopupEdit, buttonOpenPopupAdd, popupAdd,
   popupElementName, popupElementLink, popupAddButton,
-  popupAddCard, popupEdit, popupUsername, 
-  popupProfession, elements, popupEditButton,
-  popupAvatar, popupAvatarLink,
+  popupEdit, popupUsername, 
+  popupProfession, elements, popupEditButton, popupAvatarLink,
   popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar, config, formAdd, formAvatar, formEdit} from './utils.js';
-import { openPopup, closePopup, closePopupWithMouse, closePopupWithCross} from './modal.js';
 import Api from './Api.js';
 import Card from './Card.js';
 import FormVaidator from './FormValidator.js';
 import Section from './Section.js';
-import UserInfo from './UserInfo';
+import UserInfo from './UserInfo.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
+
 
 //создаем экземпляр класса Api
 export const api = new Api(config);
@@ -20,15 +21,6 @@ export const api = new Api(config);
 const userInfo = new UserInfo({userNameSelector: '.profile__name',
   userAboutSelector: '.profile__proffession',
   userAvatarSelector: '.profile__avatarImg'});
-
-
-// export function renderUserData(data) {
-//   user = data;
-//   userNameElement.textContent = data.name;
-//   userProfElement.textContent = data.about;
-//   userAvatarElement.src = data.avatar;
-//   userAvatarElement.alt = `Аватар ${data.name}`;
-// }
 
 // Получаем и записываем данные с сервера
 let userId;
@@ -52,10 +44,34 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
+const popupAvatar = new PopupWithForm ({
+  popupSelector: '.popup_type_avatar-edit',
+  colbackSubmit: (item) => {
+    renderLoading(true, popup_type_avatar-edit);
+    api.setUserAvatar(item)
+      .then((data) => {
+        userInfo.setUserAvatar(data);
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(()=> {
+        renderLoading(false, popup_type_avatar-edit);
+      })
+  }
+});
+
+popupAvatar.setEventListeners();
+
+buttonOpenPopupAvatar.addEventListener('click', () => {
+  // FormVaidatorEditAvatar.hideErorrs();
+  popupAvatar.open();
+ });
 
 
-closePopupWithCross();
-closePopupWithMouse();
+// closePopupWithCross();
+// closePopupWithMouse();
 
 // buttonOpenPopupEdit.addEventListener(
 //   'click',
@@ -68,49 +84,59 @@ closePopupWithMouse();
 // )
 
 
-buttonOpenPopupAdd.addEventListener('click', () => openPopup(popupAdd));
+//buttonOpenPopupAdd.addEventListener('click', () => openPopup(popupAdd));
 
 
 //Добавление карточки
-popupAdd.addEventListener('submit', function (evt){
-  evt.preventDefault();
-  renderLoading(true, popupAddButton);
-  const cardName = popupElementName.value;
-  const cardLink = popupElementLink.value;
-  api.postCard(cardName, cardLink)
-    .then(card => elements.prepend(new Card(card, userId, '.element')))
-    .then(() => {
-      popupAddCard.reset();
-      popupAddButton.classList.add('popup__button_novalid');
-      popupAddButton.disabled = true;
-      closePopup(popupAdd);
-    })
-    .catch(api.printError())
-    .finally(() => renderLoading(false, popupAddButton));
-});
+
+// popupAdd.addEventListener('submit', function (evt){
+//   evt.preventDefault();
+//   renderLoading(true, popupAddButton);
+//   const cardName = popupElementName.value;
+//   const cardLink = popupElementLink.value;
+//   api.postCard(cardName, cardLink)
+//     .then(card => elements.prepend(new Card(card, userId, '.element')))
+//     .then(() => {
+//       popupAddCard.reset();
+//       popupAddButton.classList.add('popup__button_novalid');
+//       popupAddButton.disabled = true;
+//       closePopup(popupAdd);
+//     })
+//     .catch(api.printError())
+//     .finally(() => renderLoading(false, popupAddButton));
+// });
+
+// const popupAddCard = new PopupWithForm({
+//   selector: '.popup__form-add-card',
+//   handleformSubmitEdit: (item) => {
+//     renderLoading(true, popupAddButton);
+
+//   }
+
+// })
 
 
 
 //Редактирование профиля
-function handleformSubmitEdit (evt) {
-  evt.preventDefault();
-  renderLoading(true, popupEditButton);
-  api.editProfile(popupUsername.value, popupProfession.value)
-    .then(res => {
-      renderUserData(res);
-      disabledEditPopupButton(popupEditButton);
-      closePopup(popupEdit);
-    })
-    .catch(api.printError())
-    .finally(() => renderLoading(false, popupEditButton))  
-}
+// function handleformSubmitEdit (evt) {
+//   evt.preventDefault();
+//   renderLoading(true, popupEditButton);
+//   api.editProfile(popupUsername.value, popupProfession.value)
+//     .then(res => {
+//       renderUserData(res);
+//       disabledEditPopupButton(popupEditButton);
+//       closePopup(popupEdit);
+//     })
+//     .catch(api.printError())
+//     .finally(() => renderLoading(false, popupEditButton))  
+// }
 
-popupEdit.addEventListener('submit', handleformSubmitEdit);
+// popupEdit.addEventListener('submit', handleformSubmitEdit);
 
-export function disabledEditPopupButton(disabledButton) {
-  disabledButton.classList.add(validationSettings.inactiveButtonClass);
-  disabledButton.disabled = true;
-};
+// export function disabledEditPopupButton(disabledButton) {
+//   disabledButton.classList.add(validationSettings.inactiveButtonClass);
+//   disabledButton.disabled = true;
+// };
 
 //Редактирование аватара
 
@@ -130,16 +156,16 @@ export function disabledEditPopupButton(disabledButton) {
 //     .finally(() => renderLoading(false, popupAvatarButton));
 // }
 
-buttonOpenPopupAvatar.addEventListener('click', () => {
-  FormVaidatorEditAvatar.hideErorrs();
-  openPopup(popupAvatar)
-});
+// buttonOpenPopupAvatar.addEventListener('click', () => {
+//   FormVaidatorEditAvatar.hideErorrs();
+//   openPopup(popupAvatar)
+// });
 
 
-popupAvatar.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  editAvatarImg();
-});
+// popupAvatar.addEventListener('submit', function (evt) {
+//   evt.preventDefault();
+//   editAvatarImg();
+// });
 
 
 
@@ -155,7 +181,8 @@ FormVaidatorEditAvatar.enableValidation();
 
 
 //Улучшенный UX всех форм
-export function renderLoading(isLoading, button) {
+export function renderLoading(isLoading, popup) {
+  const popupButton = document.querySelector(`.${popup} .popup__button`)
   if (button.name === 'create-card-button') {
     button.textContent = isLoading ? 'Сохранение...' : 'Создать'
   } else {
