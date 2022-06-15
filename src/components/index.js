@@ -1,9 +1,8 @@
 import '../pages/index.css'
-import {validationSettings, buttonOpenPopupEdit, buttonOpenPopupAdd, popupAdd,
-  popupElementName, popupElementLink, popupAddButton,
-  popupEdit, popupUsername, 
-  popupProfession, elements, popupEditButton, popupAvatarLink,
-  popupAvatarButton, popupAvatarForm, buttonOpenPopupAvatar, config, formAdd, formAvatar, formEdit} from './utils.js';
+import {validationSettings, config, buttonOpenPopupEdit, buttonOpenPopupAdd, 
+  popupElementName, popupElementLink,
+   buttonOpenPopupAvatar, formAdd, formAvatar,
+   formEdit} from './utils.js';
 import Api from './Api.js';
 import Card from './Card.js';
 import FormVaidator from './FormValidator.js';
@@ -11,6 +10,7 @@ import Section from './Section.js';
 import UserInfo from './UserInfo.js';
 import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
+import Popup from './Popup';
 
 
 //создаем экземпляр класса Api
@@ -29,14 +29,14 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
     userId = userData._id;
-    const section = new Section({
-      items: cards,
-      renderer: (item) => {
-        const card = new Card(item, userId, 'element');  
-        return card.generate()
-      }
-    }, '.elements');
-    section.addItems();
+    // const section = new Section({
+    //   items: cards,
+    //   renderer: (item) => {
+    //     const card = new Card(item, userId, 'element');  
+    //     return card.generate()
+    //   }
+    // }, '.elements');
+    // section.addItems();
   })
   .catch((err) => {console.log(err)});
 
@@ -44,30 +44,38 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
-const popupAvatar = new PopupWithForm ({
-  popupSelector: '.popup_type_avatar-edit',
-  colbackSubmit: (item) => {
-    renderLoading(true, popup_type_avatar-edit);
-    api.setUserAvatar(item)
-      .then((data) => {
-        userInfo.setUserAvatar(data);
-        popupAvatar.close();
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      })
-      .finally(()=> {
-        renderLoading(false, popup_type_avatar-edit);
-      })
-  }
-});
 
+const popupAvatar = new Popup('.popup_type_avatar-edit');
 popupAvatar.setEventListeners();
-
 buttonOpenPopupAvatar.addEventListener('click', () => {
-  // FormVaidatorEditAvatar.hideErorrs();
   popupAvatar.open();
- });
+})
+
+// const popupAvatar = new PopupWithForm ({
+//   popupSelector: '.popup_type_avatar-edit',
+//   colbackSubmit: 
+//   (item) => {
+//     renderLoading(true, popupSelector);
+//     api.setUserAvatar(item)
+//       .then((data) => {
+//         userInfo.setUserAvatar(data);
+//         popupAvatar.close();
+//       })
+//       .catch((err) => {
+//         console.log(`${err}`);
+//       })
+//       .finally(()=> {
+//         renderLoading(false, popupSelector);
+//       })
+//   }
+// });
+
+// popupAvatar.setEventListeners();
+
+// buttonOpenPopupAvatar.addEventListener('click', () => {
+//   // FormVaidatorEditAvatar.hideErorrs();
+//   popupAvatar.open();
+//  });
 
 
 // closePopupWithCross();
@@ -149,7 +157,7 @@ buttonOpenPopupAvatar.addEventListener('click', () => {
 //       userAvatarElement.src = link.avatar;
 //       popupAvatarButton.classList.add('popup__button_novalid');
 //       popupAvatarButton.disabled = true;
-//       popupAvatarForm.reset();
+//       formAvatar.reset();
 //       closePopup(popupAvatar);
 //     })
 //     .catch(api.printError())
@@ -172,17 +180,17 @@ buttonOpenPopupAvatar.addEventListener('click', () => {
 
 //Валидация
 
-const FormVaidatorAddCard = new FormVaidator(validationSettings, formAdd);
-FormVaidatorAddCard.enableValidation();
-const FormVaidatorEditProfile = new FormVaidator(validationSettings, formEdit);
-FormVaidatorEditProfile.enableValidation();
-const FormVaidatorEditAvatar = new FormVaidator(validationSettings, formAvatar);
-FormVaidatorEditAvatar.enableValidation();
+// const FormVaidatorAddCard = new FormVaidator(validationSettings, formAdd);
+// FormVaidatorAddCard.enableValidation();
+// const FormVaidatorEditProfile = new FormVaidator(validationSettings, formEdit);
+// FormVaidatorEditProfile.enableValidation();
+// const FormVaidatorEditAvatar = new FormVaidator(validationSettings, formAvatar);
+// FormVaidatorEditAvatar.enableValidation();
 
 
 //Улучшенный UX всех форм
 export function renderLoading(isLoading, popup) {
-  const popupButton = document.querySelector(`.${popup} .popup__button`)
+  const popupButton = document.querySelector(`${popup} .popup__button`)
   if (button.name === 'create-card-button') {
     button.textContent = isLoading ? 'Сохранение...' : 'Создать'
   } else {
