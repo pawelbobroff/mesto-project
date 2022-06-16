@@ -23,5 +23,5 @@ export default class UserInfo {
 
     setUserAvatar(data) {
         this._avatar.src = data.avatar || data.link;
-    }
+      }
 }

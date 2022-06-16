@@ -34,13 +34,13 @@ export default class Api {
 
   // Редактирование профиля
 
-  editProfile(name, description) {
+  editProfile(data) {
       return fetch(`${this._baseUrl}/users/me`, {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
-            name: name,
-            about: description
+            name: data.username,
+            about: data.profession
           })
       })
       .then(this.responseCheck)

@@ -4,10 +4,11 @@ export default class PopupWithForm extends Popup {
 
     constructor({popupSelector, colbackSubmit}) {
         super(popupSelector);
-        this._inputsList = this._popup.querySelectorAll('.popup__item');
-        this._form = this._popup.querySelectorAll('.form');
+        this._form = this._popup.querySelector('.form');
+        this._inputsList = this._form.querySelectorAll('.popup__item');
         
-        this._submitButton = this._popup.querySelectorAll('.popup__button');
+        
+        this._submitButton = this._popup.querySelector('.popup__button');
 
         this._colbackSubmit = colbackSubmit;
 
@@ -20,15 +21,15 @@ export default class PopupWithForm extends Popup {
     }
 
     close () {
-        super.close;
-        // this._form.reset();
+        super.close();
+        this._form.reset();
     }
 
     setEventListeners() {
         super.setEventListeners();
         //console.log(this._form);
-        this._popup.addEventListener('submit', function (event) {
-            event.preventDefault();
+        this._form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
             this._colbackSubmit(this._getInputValues());
         });
     }

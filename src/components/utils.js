@@ -30,10 +30,12 @@ export const popupUsername = popupEdit.querySelector('#username');
 export const popupProfession = popupEdit.querySelector('#profession');
 // export const popupEditButton = popupEdit.querySelector('.popup__button');
 
-// export const popupView = document.querySelector('.popup_type_picture');
+
 // export const buttonClosePopupView = popupView.querySelector('.button_theme_close');
-// export const popupViewImage =  popupView.querySelector('.popup__image');
-// export const popupViewImageName = popupView.querySelector('.popup__name-image');
+//потом убрать
+export const popupView = document.querySelector('.popup_type_picture');
+export const popupViewImage =  popupView.querySelector('.popup__image');
+export const popupViewImageName = popupView.querySelector('.popup__name-image');
 
 // export const popupAvatar = document.querySelector('.popup_type_avatar-edit');
 export const formAvatar = document.querySelector('.popup__form-avatar-edit');
@@ -46,11 +48,3 @@ export const formAvatar = document.querySelector('.popup__form-avatar-edit');
 // export const elementTemlate = document.querySelector('#element').content;
 // export const elements = document.querySelector('.elements');
 
-//Настройки запроса
-export const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-9',
-  headers: {
-      authorization: '51635047-90c2-46fc-abfe-190701a5705f',
-      'Content-Type': 'application/json',
-  }
-}

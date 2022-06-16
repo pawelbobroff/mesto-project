@@ -5,11 +5,11 @@
 //     popupProfession, popupView, buttonClosePopupView, popupViewImage,
 //     popupViewImageName, elementTemlate, elements, initialCards} from './utils.js';
 
-// //функции открытия и закрытия попапа
-// export function openPopup(popup) {
-//   popup.classList.add('popup_opened');
-//   document.addEventListener('keydown', escapeClosePopup);
-// };
+//функции открытия и закрытия попапа
+export function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escapeClosePopup);
+};
 
 // export function closePopup(popup) {
 //   popup.classList.remove('popup_opened');

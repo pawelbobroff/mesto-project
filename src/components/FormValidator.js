@@ -2,7 +2,7 @@ export default class FormVaidator {
     constructor(settings, form){
         this._settings = settings;
         this._form = form;
-        console.log(this._form);
+        
         // Находим все поля внутри формы,
         // сделаем из них массив методом Array.from
         this._inputsList = Array.from(this._form.querySelectorAll(this._settings.inputSelector));
@@ -13,18 +13,16 @@ export default class FormVaidator {
     _showInputError (inputElement) {
         const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.add[this._settings.inputErrorClass];
-        this._errorElement.textContent = inputElement.validationMessage;
-        this._errorElement.classList.add(this._settings.errorClass);// Показываем сообщение об ошибке
+        errorElement.textContent = inputElement.validationMessage;
+        errorElement.classList.add(this._settings.errorClass);// Показываем сообщение об ошибке
     }
 
     // Функция, которая удаляет класс с ошибкой
     _hideInputError (inputElement) {
         const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-        console.log(inputElement.classList);
-        console.log(this._settings.inputErrorClass);
-        inputElement.classList.remove[this._settings.inputErrorClass];
-        this._errorElement.classList.remove[this._settings.errorClass];// Скрываем сообщение об ошибке
-        this._errorElement.textContent = '';
+        inputElement.classList.remove(this._settings.inputErrorClass);
+        errorElement.classList.remove(this._settings.errorClass);// Скрываем сообщение об ошибке
+        errorElement.textContent = '';
     };
     
     // Функция, которая проверяет валидность поля

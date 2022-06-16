@@ -10,7 +10,6 @@ export default class Section {
 
     addItem(element){
         this.container.append(this.renderer(element));
-        //console.log(element)
     }
 
     addItems () {
