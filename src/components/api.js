@@ -47,13 +47,13 @@ export default class Api {
   };
  
   //Добавление новой карточки
-  postCard(nameCard, linkCard) {
+  postCard(data) {
       return fetch(`${this._baseUrl}/cards`, {
           method: 'POST',
           headers: this._headers,
           body: JSON.stringify({
-            name: nameCard,
-            link: linkCard
+            name: data.name,
+            link: data.link
           })
       })
       .then(this.responseCheck)

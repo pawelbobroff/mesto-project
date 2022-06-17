@@ -21,7 +21,7 @@ export const formAdd = document.querySelector('.popup__form-add-card');
 // export const popupElementLink = popupAdd.querySelector('#elementLink');
 // export const popupAddButton = popupAdd.querySelector('.popup__button');
 // export const buttonClosePopupAdd = popupAdd.querySelector('.button_theme_close');
-//export const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
+// export const popupAddCard = popupAdd.querySelector('.popup__form-add-card');
 
 export const popupEdit = document.querySelector('.popup_type_profile');
 export const formEdit = document.querySelector('.popup__form-change-name');

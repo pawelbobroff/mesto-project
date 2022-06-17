@@ -39,13 +39,23 @@ Promise.all([api.getUserData(), api.getInitialCards()])
       items: cards,
       renderer: (item) => {
         const card = new Card(item, userId, 'element',
-          clickButtonLikeWithServer(card, userId));  
+        {functionDeliteWithServer: () => {
+          api.deleteCard(card.__id)
+          .then(() => {
+            const cardItem = card._elementButtonDel.closest('.element');
+            cardItem.remove();
+          })
+          .catch(printError)
+        } });
         return card.generate()
       }
     }, '.elements');
     section.addItems();
   })
   .catch((err) => {console.log(err)});
+
+//создаем 
+
 
 //1. Работа модальных окон. Открытие и закрытие модального окна
 
@@ -54,7 +64,6 @@ const popupAvatar = new PopupWithForm ({
   colbackSubmit: 
   (item) => {
     renderLoading(true, '.popup_type_avatar-edit');
-    console.log(item);
     api.editAvatarProfile(item.avatar)
       .then((data) => {
         userInfo.setUserAvatar(data);
@@ -69,17 +78,16 @@ const popupAvatar = new PopupWithForm ({
   }
 });
 
-popupAvatar.setEventListeners();
-
 buttonOpenPopupAvatar.addEventListener('click', () => {
   FormVaidatorEditAvatar.hideErorrs();
   popupAvatar.open();
  });
 
+popupAvatar.setEventListeners();
+
 const editProfile = new PopupWithForm ({
   popupSelector: '.popup_type_profile',
   colbackSubmit: (item) => {
-    console.log(item);
     renderLoading(true, '.popup_type_profile');
     api.editProfile(item)
       .then((data)=> {
@@ -96,11 +104,69 @@ const editProfile = new PopupWithForm ({
   }
 })
 
-editProfile.setEventListeners();
 buttonOpenPopupEdit.addEventListener('click', () => {
   FormVaidatorEditProfile.hideErorrs();
   editProfile.open();
 });
+editProfile.setEventListeners();
+
+const addCardProfile = new PopupWithForm ({
+  popupSelector: '.popup_type_card-add',
+  colbackSubmit: (item) => {
+    renderLoading(true, '.popup_type_card-add');
+    api.postCard(item)
+      .then((data)=> {
+        const cardData = data;
+        const newSection = new Section({
+          renderer: (item) => {
+            const newCard = new Card(item, userId, 'element',
+            {functionDeliteWithServer: () => {
+              api.deleteCard(newCard.__id)
+              .then(() => {
+                const cardItem = newCard._elementButtonDel.closest('.element');
+                cardItem.remove();
+              })
+              .catch(printError)
+            } });
+            return newCard.generate()
+          }
+        }, '.elements');
+        newSection.addItem(cardData);
+        addCardProfile.close();
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(()=> {
+        renderLoading(false, '.popup_type_card-add');
+      })
+  }
+})
+
+buttonOpenPopupAdd.addEventListener('click', () => {
+  FormVaidatorEditProfile.hideErorrs();
+  addCardProfile.open();
+});
+addCardProfile.setEventListeners();
+
+// // Добавление элементов на страницу
+// const section = new Section({
+//   items: cards,
+//   renderer: (item) => {
+//     const card = new Card(item, userId, 'element',
+//     {functionDeliteWithServer: () => {
+//       api.deleteCard(card.__id)
+//       .then(() => {
+//         const cardItem = card._elementButtonDel.closest('.element');
+//         cardItem.remove();
+//       })
+//       .catch(printError)
+//     } });
+//     return card.generate()
+//   }
+// }, '.elements');
+
+// экземпляр класса Card
 
 
 // //создаем экземпляр класса Section
@@ -164,18 +230,31 @@ buttonOpenPopupEdit.addEventListener('click', () => {
 // })
 
 //Функция клика на лайк
-function clickButtonLikeWithServer(card, userId) {
-  if (card.haveMyLike) {
-    api.deleteLike(userId)
-      .then(res)
-      .catch(err => console.error(err))
-  } else {
-    api.addLike(userId)
-      .then(res)
-      .catch(err => console.error(err))
-  }
-}
+// function clickButtonLikeWithServer(card, userId) {
+//   if (card.haveMyLike) {
+//     api.deleteLike(userId)
+//       .then(res)
+//       .catch(err => console.error(err))
+//   } else {
+//     api.addLike(userId)
+//       .then(res)
+//       .catch(err => console.error(err))
+//   }
+// }
+// function clickButtonLikeWithServer (card, data) {
+  
+//   const promise = card.checkOwnerIsLike()
+//   ? api.deleteLike(card._id)
+//   : api.addLike(card._id);
 
+//   promise
+//     .then((data) => {
+//       card.addLike(data);
+//     })
+//     .catch((err) => {
+//       console.log(`${err}`);
+//     });
+// };
 
 
 
@@ -185,8 +264,8 @@ function clickButtonLikeWithServer(card, userId) {
 
 //Валидация
 
-// const FormVaidatorAddCard = new FormVaidator(validationSettings, formAdd);
-// FormVaidatorAddCard.enableValidation();
+const FormVaidatorAddCard = new FormVaidator(validationSettings, formAdd);
+FormVaidatorAddCard.enableValidation();
 const FormVaidatorEditProfile = new FormVaidator(validationSettings, formEdit);
 FormVaidatorEditProfile.enableValidation();
 const FormVaidatorEditAvatar = new FormVaidator(validationSettings, formAvatar);
