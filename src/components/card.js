@@ -5,7 +5,7 @@ import { openPopup } from './modal.js';
 import {api} from './index.js';
 
 export default class Card {
-  constructor(cardData, userId, selector, {functionDeliteWithServer}){
+  constructor(cardData, userId, selector, {functionDeliteWithServer, handleCardClick}){
     this._cardData = cardData;
     this._likes = cardData.likes;
     this._name = cardData.name;
@@ -15,7 +15,8 @@ export default class Card {
     this.__id = cardData._id;
     this._selector = selector;
     this._userId = userId;
-    this.functionDeliteWithServer = functionDeliteWithServer
+    this.functionDeliteWithServer = functionDeliteWithServer;
+    this._handleCardClick = handleCardClick;
   }
 
   _getElement() {
@@ -45,6 +46,14 @@ export default class Card {
     }
   }
 
+  _clickButtonDel(){
+    api.deleteCard(this.__id)
+    .then(res =>{
+      this._element.remove();
+    })
+    .catch(err => console.error(err))
+  }
+
   _setEventListenersButtonLike(){
     this._elementButtonLike.addEventListener('click', () => {
       this._clickButtonLike()
@@ -52,7 +61,7 @@ export default class Card {
   }
   _setEventListenerButtonDel(){
     this._elementButtonDel.addEventListener('click', () => {
-
+this._clickButtonDel()
     })
   }
   _markButtonLike(){
@@ -67,12 +76,8 @@ export default class Card {
   }
   _addImageListener(){
     this._elementImage.addEventListener('click',
-      function (evt) {
-        popupViewImage.src = this._link;                    //Должно быть исправлено
-        popupViewImage.alt = this._name;                    //Должно быть исправлено        
-        popupViewImageName.textContent = this._name;        //Должно быть исправлено
-        openPopup(popupView)
-      }
+     
+    this._handleCardClick 
     )
   }
   generate() {

@@ -23,6 +23,8 @@ export const api = new Api({
 });
 
 //создаем экземпляр класса UserInfo
+const popupForImage = document.querySelector('.popup_type_picture');
+ const imagePopup = new PopupWithImage ('.popup_type_picture')
 
 const userInfo = new UserInfo({userNameSelector: '.profile__name',
   userAboutSelector: '.profile__proffession',
@@ -39,7 +41,8 @@ Promise.all([api.getUserData(), api.getInitialCards()])
       items: cards,
       renderer: (item) => {
         const card = new Card(item, userId, 'element',
-        {functionDeliteWithServer: () => {
+        {handleCardClick: () => imagePopup.openImage(item.name,item.link,),
+          functionDeliteWithServer: () => {
           api.deleteCard(card.__id)
           .then(() => {
             const cardItem = card._elementButtonDel.closest('.element');
@@ -110,17 +113,21 @@ buttonOpenPopupEdit.addEventListener('click', () => {
 });
 editProfile.setEventListeners();
 
+
 const addCardProfile = new PopupWithForm ({
   popupSelector: '.popup_type_card-add',
   colbackSubmit: (item) => {
     renderLoading(true, '.popup_type_card-add');
     api.postCard(item)
       .then((data)=> {
+        
         const cardData = data;
         const newSection = new Section({
           renderer: (item) => {
             const newCard = new Card(item, userId, 'element',
-            {functionDeliteWithServer: () => {
+            {
+              handleCardClick: () => imagePopup.openImage(item.name, item.link),
+              functionDeliteWithServer: () => {
               api.deleteCard(newCard.__id)
               .then(() => {
                 const cardItem = newCard._elementButtonDel.closest('.element');
@@ -258,7 +265,7 @@ addCardProfile.setEventListeners();
 
 
 
-
+imagePopup.setEventListeners();
 
 
 
