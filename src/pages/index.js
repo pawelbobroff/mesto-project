@@ -132,10 +132,12 @@ const editProfile = new PopupWithForm ({
   }
 })
 
+const {about, name} = userInfo.getUserInfo()
+
 buttonOpenPopupEdit.addEventListener('click', () => {
   formVaidatorEditProfile.hideErorrs();
-  popupUsername.value = document.querySelector('.profile__name').textContent;
-  popupProfession.value = document.querySelector('.profile__proffession').textContent;
+  popupUsername.value = name;
+  popupProfession.value = about;
   editProfile.open();
 
 });
