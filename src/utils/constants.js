@@ -17,7 +17,7 @@ export const validationSettings = {
   export const formEdit = document.querySelector('.popup__form-change-name');
   
   export const popupUsername = popupEdit.querySelector('#username');
-  export const popupProfession = popupEdit.querySelector('#profession');
+  export const popupProfession = popupEdit.querySelector('.popup-profession');
   
   export const popupView = document.querySelector('.popup_type_picture');
   export const popupViewImage =  popupView.querySelector('.popup__image');
